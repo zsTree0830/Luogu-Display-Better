@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         Luogu Display Better
 // @namespace    https://www.luogu.com.cn/user/1362278
-// @version      1.0.1
+// @version      1.0.3
 // @description  Change your Luogu style what you like best
 // @author       zsTree & Ashstrider
 // @match        *://www.luogu.com.cn/*
@@ -11,8 +11,9 @@
 // ==/UserScript==
 
 /**
- * version 1.0.1 更新日志
- * 1. 将卡片圆角度数与图片圆角度数分开，并设置图片圆角度数上限为16px
+ * version 1.0.3 更新日志
+ * 1. 解决了聊天页面透明度无效果的bug
+ * 2. （未完成）评论上方圆角
  * bugs未修：下拉菜单在有blur时会被遮挡
 */
 
@@ -71,6 +72,9 @@
 
         if (document.querySelector('.toc')) css += `html.ldb-bgfullscreen .toc.toc { border-radius: .5em !important; }`;
 
+        if (document.querySelector('.meta')) css += `.meta { border-top-left-radius: ${cardRadius} !important; 
+            border-top-right-radius: ${cardRadius} !important; }`
+
         if (picRounded) css += `img { border-radius: ${picRadius} !important; }`;
 
         style.innerHTML = css;
@@ -87,11 +91,10 @@
         const style = document.createElement('style');
         style.id = 'ldb-blur-style';
         const val = blurValue === 0 ? 'none' : `blur(${blurValue}px)`;
-        const css = `.lg-article, .card, .l-card, .theme-page { backdrop-filter: ${val} !important; }` +
-                    `.theme-page { --theme-card-backdrop-filter: ${val} !important; }` +
+        const css = `.lg-article, .card, .l-card { backdrop-filter: ${val} !important; }` + //, .theme-page
+                    // `.theme-page { --theme-card-backdrop-filter: ${val} !important; }` +
                     `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { backdrop-filter: ${val} !important; }` +
-                    `html.ldb-bgfullscreen .article-banner,` +
-                    `html.ldb-bgfullscreen .lfe-marked-wrap { backdrop-filter: ${val} !important; }`;
+                    `.article-banner{ backdrop-filter: ${val} !important; }`;
         style.innerHTML = css;
         document.head.append(style);
     }
@@ -106,7 +109,7 @@
         style.id = 'ldb-opacity-style';
         const alpha = opacityValue / 100;
         const css = `.lg-article, .l-card, .card { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
-                    `.theme-page { --theme-card-background: rgba(255, 255, 255, ${alpha}) !important; }` +
+                    // `.theme-page { --theme-card-background: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `.top-bar, nav.lfe-body, .user-nav, .header-layout { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `.sidebar, .nav-group { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `nav.lfe-body > div { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
@@ -205,12 +208,6 @@
                 background-image: none !important;
             }
             html.ldb-bgfullscreen main.lfe-body {
-                background: transparent !important;
-            }
-            html.ldb-bgfullscreen .main-container,
-            html.ldb-bgfullscreen .wrapper,
-            html.ldb-bgfullscreen .columba-content-wrap,
-            html.ldb-bgfullscreen .sidebar-container {
                 background: transparent !important;
             }
             html.ldb-bgfullscreen .header-layout .background {
