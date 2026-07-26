@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         Luogu Display Better
 // @namespace    https://www.luogu.com.cn/user/1362278
-// @version      1.0.0
+// @version      1.0.1
 // @description  Change your Luogu style what you like best
 // @author       zsTree & Ashstrider
 // @match        *://www.luogu.com.cn/*
@@ -10,49 +10,71 @@
 // @run-at       document-start
 // ==/UserScript==
 
+/**
+ * version 1.0.1 更新日志
+ * 1. 将卡片圆角度数与图片圆角度数分开，并设置图片圆角度数上限为16px
+ * bugs未修：下拉菜单在有blur时会被遮挡
+*/
+
 (function() {
     'use strict';
 
-    let borderRadius;
-    let blurValue;
-    let opacityValue;
-    let cardRounded;
-    let picRounded;
-    let bgFullscreen;
-    let adBlock;
-    let customCSS;
+    let cardborderRad;  // 卡片圆角度数
+    let picborderRad;   // 图片圆角度数
+    let blurValue;      // 模糊度
+    let opacityValue;   // 不透明度
+    let cardRounded;    // 卡片圆角 bool
+    let picRounded;     // 图片圆角 bool
+    let bgFullscreen;   // 背景全屏 bool
+    let adBlock;        // 去广告 bool
+    let customCSS;      // 自定义css bool
 
     function initVarible() {
-        borderRadius = parseFloat(localStorage.getItem("LuoguDisplayBetter-borderRadius") ?? 15);
+        cardborderRad = parseFloat(localStorage.getItem("LuoguDisplayBetter-cardborderRad") ?? 15);
+        picborderRad = parseFloat(localStorage.getItem("LuoguDisplayBetter-picborderRad") ?? 8);
         blurValue = parseFloat(localStorage.getItem("LuoguDisplayBetter-blur") ?? 10);
         opacityValue = parseFloat(localStorage.getItem("LuoguDisplayBetter-opacity") ?? 75);
-        cardRounded = localStorage.getItem("LuoguDisplayBetter-cardRounded") ?? true;
-        picRounded = localStorage.getItem("LuoguDisplayBetter-picRounded") ?? true;
-        adBlock = localStorage.getItem("LuoguDisplayBetter-adBlock") ?? false;
-        bgFullscreen = localStorage.getItem("LuoguDisplayBetter-bgFullscreen") ?? true;
+        cardRounded = localStorage.getItem("LuoguDisplayBetter-cardRounded") !== 'false';
+        picRounded = localStorage.getItem("LuoguDisplayBetter-picRounded") !== 'false';
+        adBlock = localStorage.getItem("LuoguDisplayBetter-adBlock") !== 'true';
+        bgFullscreen = localStorage.getItem("LuoguDisplayBetter-bgFullscreen") !== 'false';
         customCSS = localStorage.getItem("LuoguDisplayBetter-customCSS") ?? '';
     }
 
     function applyRounded() {
         const old = document.getElementById('ldb-rounded-style');
         if (old) old.remove();
-        if (isNaN(borderRadius)) return;
+        if (isNaN(cardborderRad) && isNaN(picborderRad)) return;
         let style = document.createElement('style');
         style.id = 'ldb-rounded-style';
-        const radius = borderRadius + 'px';
-        let css = `.swal2-popup.swal2-modal.swal2-show { border-radius: ${radius} !important; }`;
+        const cardRadius = cardborderRad + 'px';
+        const picRadius = picborderRad + 'px';
+        let css = `.swal2-popup.swal2-modal.swal2-show { border-radius: ${cardRadius} !important; }`;       //??
         if (cardRounded) {
-            css += `.l-card, .lg-article, .card { border-radius: ${radius} !important; }`;
-            css += `.l-form-layout, .am-panel { border-radius: ${radius} !important; }`;
+            css += `.l-card, .lg-article, .card { border-radius: ${cardRadius} !important; }`;
+            css += `.l-form-layout, .am-panel { border-radius: ${cardRadius} !important; }`;
         }
-        if (document.querySelector('.user-header-top')) css += `.user-header-top { border-top-left-radius: ${radius}; border-top-right-radius: ${radius}; } .user-header-bottom { border-bottom-left-radius: ${radius}; border-bottom-right-radius: ${radius}; }`;
-        if (document.querySelector('.user-nav')) css += `.user-nav { border-bottom-left-radius: ${radius}; border-bottom-right-radius: ${radius}; }`;
+        if (document.querySelector('.user-header-top')) css += `.user-header-top { border-top-left-radius: 
+            ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom { 
+            border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
+
+        if (document.querySelector('.user-nav')) css += `.user-nav { border-bottom-left-radius: ${cardRadius}; 
+            border-bottom-right-radius: ${cardRadius}; }`;
+
         if (document.querySelector('.test-case')) css += `.test-case { border-radius: 10px; }`;
-        if (picRounded) css += `img { border-radius: ${Math.min(borderRadius, 8)}px !important; }`;
-        if (document.querySelector('.article-banner')) css += `html.ldb-bgfullscreen .article-banner.article-banner { border-top-left-radius: ${radius} !important; border-top-right-radius: ${radius} !important; }`;
-        if (document.querySelector('.article-content')) css += `html.ldb-bgfullscreen .article-content.article-content { border-bottom-left-radius: ${radius} !important; border-bottom-right-radius: ${radius} !important; }`;
+
+        if (document.querySelector('.article-banner')) css += `html.ldb-bgfullscreen .article-banner.article-banner 
+            { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
+
+        if (document.querySelector('.article-content')) css += `html.ldb-bgfullscreen .article-content.article-content 
+            { border-bottom-left-radius: ${cardRadius} !important; border-bottom-right-radius: ${cardRadius} !important; }`;
+
         if (document.querySelector('.toc')) css += `html.ldb-bgfullscreen .toc.toc { border-radius: .5em !important; }`;
+
+        if (picRounded) css += `img { border-radius: ${picRadius} !important; }`;
+
         style.innerHTML = css;
+        
         document.head.append(style);
     }
 
@@ -308,10 +330,15 @@
                     <input id="ldb-panel-opacity" type="range" min="0" max="100" value="${opacityValue != null ? opacityValue : 75}" />
                     <span id="opacity-value">${opacityValue != null ? opacityValue : 75}%</span>
                 </p>
-                <h3>圆角曲度</h3>
+                <h3>卡片圆角曲度</h3>
                 <p>
-                    <input id="ldb-panel-rounded" type="range" min="0" max="30" value="${borderRadius != null ? borderRadius : 15}" />
-                    <span id="rounded-value">${borderRadius != null ? borderRadius : 15}px</span>
+                    <input id="ldb-panel-rounded-card" type="range" min="0" max="30" value="${cardborderRad != null ? cardborderRad : 15}" />
+                    <span id="rounded-value-card">${cardborderRad != null ? cardborderRad : 15}px</span>
+                </p>
+                <h3>图片圆角曲度</h3>
+                <p>
+                    <input id="ldb-panel-rounded-pic" type="range" min="0" max="16" value="${picborderRad != null ? picborderRad : 8}" />
+                    <span id="rounded-value-pic">${picborderRad != null ? picborderRad : 8}px</span>
                 </p>
                 <p>
                     <input id="ldb-panel-card-rounded" type="checkbox" ${cardRounded ? 'checked' : ''} />
@@ -390,9 +417,13 @@
             #ldb-panel h2 { margin: 0 0 16px 0; font-size: 22px; font-weight: 600; color: #2c3e50; }
             #ldb-panel h3 { margin: 18px 0 6px 0; font-size: 15px; font-weight: 500; color: #34495e; }
             #ldb-panel p { margin: 6px 0 12px 0; display: flex; align-items: center; gap: 10px; font-size: 14px; }
-            #ldb-panel input[type="range"] { flex: 1; accent-color: #000; height: 4px; border-radius: 2px; background: #dce3e8; cursor: pointer; }
-            #ldb-panel input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #000; box-shadow: 0 1px 4px rgba(0,0,0,0.2); cursor: pointer; }
-            #ldb-panel input[type="checkbox"] { margin-right: 8px; width: 18px; height: 18px; accent-color: #000; cursor: pointer; }
+            #ldb-panel input[type="range"] { flex: 1; accent-color: #000; height: 4px; 
+                border-radius: 2px; background: #dce3e8; cursor: pointer; }
+            #ldb-panel input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; 
+                width: 16px; height: 16px; border-radius: 50%; background: #000; 
+                box-shadow: 0 1px 4px rgba(0,0,0,0.2); cursor: pointer; }
+            #ldb-panel input[type="checkbox"] { margin-right: 8px; width: 18px; height: 18px; 
+                accent-color: #000; cursor: pointer; }
             #ldb-panel label { cursor: pointer; user-select: none; }
             #ldb-panel-customCSS {
                 width: 100%;
@@ -422,7 +453,8 @@
             }
             #ldb-panel-reset:hover { background: #d5dbe0; }
             #ldb-panel-reset:active { transform: scale(0.96); }
-            #blur-value, #opacity-value, #rounded-value { display: inline-block; width: 45px; text-align: center; font-weight: 500; }
+            #blur-value, #opacity-value, #rounded-value-card, #rounded-value-pic 
+                { display: inline-block; width: 45px; text-align: center; font-weight: 500; }
             #ldb-panel a { color: #0d3d41; text-decoration: none; }
             #ldb-panel a:hover { text-decoration: underline; }
             @media (max-width: 350px) { #ldb-panel { width: 90vw; padding: 20px 16px; right: 10px; } }
@@ -431,8 +463,10 @@
         styleEl.textContent = css;
         document.head.appendChild(styleEl);
 
-        const roundedSlider = document.getElementById('ldb-panel-rounded');
-        const roundedDisplay = document.getElementById('rounded-value');
+        const cardroundedSlider = document.getElementById('ldb-panel-rounded-card');
+        const cardroundedDisplay = document.getElementById('rounded-value-card');
+        const picroundedSlider = document.getElementById('ldb-panel-rounded-pic');
+        const picroundedDisplay = document.getElementById('rounded-value-pic');
         const closeBtn = document.getElementById('ldb-panel-close');
         const blurSlider = document.getElementById('ldb-panel-blur');
         const blurDisplay = document.getElementById('blur-value');
@@ -457,9 +491,14 @@
             saveAndApply("LuoguDisplayBetter-opacity", this.value);
         });
 
-        roundedSlider.addEventListener('input', function() {
-            roundedDisplay.textContent = this.value + 'px';
-            saveAndApply("LuoguDisplayBetter-borderRadius", this.value);
+        cardroundedSlider.addEventListener('input', function() {
+            cardroundedDisplay.textContent = this.value + 'px';
+            saveAndApply("LuoguDisplayBetter-cardborderRad", this.value);
+        });
+
+        picroundedSlider.addEventListener('input', function() {
+            picroundedDisplay.textContent = this.value + 'px';
+            saveAndApply("LuoguDisplayBetter-picborderRad", this.value);
         });
 
         cardRoundedCb.addEventListener('change', function() {
@@ -484,7 +523,8 @@
         });
 
         resetBtn.addEventListener('click', function() {
-            localStorage.setItem("LuoguDisplayBetter-borderRadius", 15);
+            localStorage.setItem("LuoguDisplayBetter-cardborderRad", 15);
+            localStorage.setItem("LuoguDisplayBetter-picborderRad", 8);
             localStorage.setItem("LuoguDisplayBetter-blur", 10);
             localStorage.setItem("LuoguDisplayBetter-cardRounded", true);
             localStorage.setItem("LuoguDisplayBetter-picRounded", true);
@@ -494,11 +534,13 @@
             localStorage.setItem("LuoguDisplayBetter-customCSS", '');
             initVarible();
             blurSlider.value = blurValue;
-            roundedSlider.value = borderRadius;
+            cardroundedSlider.value = cardborderRad;
+            picroundedSlider.value = picborderRad;
             blurDisplay.textContent = blurValue + 'px';
             opacitySlider.value = 75;
             opacityDisplay.textContent = '75%';
-            roundedDisplay.textContent = '15px';
+            cardroundedDisplay.textContent = '15px';
+            picroundedDisplay.textContent = '8px';
             cardRoundedCb.checked = true;
             picRoundedCb.checked = true;
             bgFullscreenCb.checked = true;
@@ -595,7 +637,8 @@
         const firstUsed = localStorage.getItem("LuoguDisplayBetter-FirstUsed") == null;
         if (firstUsed) {
             localStorage.setItem("LuoguDisplayBetter-FirstUsed", false);
-            localStorage.setItem("LuoguDisplayBetter-borderRadius", 15);
+            localStorage.setItem("LuoguDisplayBetter-cardborderRad", 15);
+            localStorage.setItem("LuoguDisplayBetter-picborderRad", 8);
             localStorage.setItem("LuoguDisplayBetter-blur", 10);
             localStorage.setItem("LuoguDisplayBetter-cardRounded", true);
             localStorage.setItem("LuoguDisplayBetter-picRounded", true);
