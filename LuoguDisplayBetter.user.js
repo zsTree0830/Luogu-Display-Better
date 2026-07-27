@@ -1,7 +1,7 @@
 ﻿// ==UserScript==
 // @name         Luogu Display Better
 // @namespace    https://www.luogu.com.cn/user/1362278
-// @version      1.0.3
+// @version      1.0.4
 // @description  Change your Luogu style what you like best
 // @author       zsTree & Ashstrider
 // @match        *://www.luogu.com.cn/*
@@ -11,10 +11,8 @@
 // ==/UserScript==
 
 /**
- * version 1.0.3 更新日志
- * 1. 解决了聊天页面透明度无效果的bug
- * 2. （未完成）评论上方圆角
- * bugs未修：下拉菜单在有blur时会被遮挡
+ * version 1.0.4 更新日志
+ * 1. 修复了下拉菜单在有blur时会被遮挡的bug
 */
 
 (function() {
@@ -94,7 +92,15 @@
         const css = `.lg-article, .card, .l-card { backdrop-filter: ${val} !important; }` + //, .theme-page
                     // `.theme-page { --theme-card-backdrop-filter: ${val} !important; }` +
                     `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { backdrop-filter: ${val} !important; }` +
-                    `.article-banner{ backdrop-filter: ${val} !important; }`;
+                    `.article-banner{ backdrop-filter: ${val} !important; }` +
+                    // 排除下拉菜单、弹出层，防止 blur 遮挡 dropdown/popper
+                    `.el-popper, .el-dropdown-menu, .el-select-dropdown, .el-cascader__dropdown,` +
+                    `.el-picker__popper, .el-popover, .el-tooltip__popper, .el-dialog__wrapper,` +
+                    `.el-message-box__wrapper, .el-drawer, .el-notification,` +
+                    `.v-popper, .v-popper__inner,` +
+                    `.top-bar [class*="dropdown"], .sidebar [class*="dropdown"], .nav-group [class*="dropdown"],` +
+                    `.top-bar [class*="popper"], .sidebar [class*="popper"], .nav-group [class*="popper"]` +
+                    `{ backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }`;
         style.innerHTML = css;
         document.head.append(style);
     }
