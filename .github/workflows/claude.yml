@@ -48,7 +48,7 @@ jobs:
         env:
           ANTHROPIC_BASE_URL: https://api.deepseek.com/anthropic
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ secrets.DEEPSEEK_API_KEY }}
           prompt: |
             The user mentioned @claude in a comment on PR #${{ github.event.issue.number || github.event.pull_request.number }}.
             Their comment was: "${{ github.event.comment.body || github.event.review.body }}"
