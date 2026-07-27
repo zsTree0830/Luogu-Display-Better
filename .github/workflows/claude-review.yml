@@ -34,7 +34,7 @@ jobs:
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
 
-            **Important: Only review the files that are actually changed in this pull request.**
+            **Critical: Only review the files that are actually changed in this pull request.**
             Use `gh pr diff` to get the diff, and restrict all analysis, inline comments, and suggestions to those modified files.
             Do not review or comment on files that are not part of the PR diff.
 
