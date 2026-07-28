@@ -10,23 +10,18 @@
 // @run-at       document-start
 // ==/UserScript==
 
-/**
- * version 1.0.4 更新日志
- * 1. 修复了下拉菜单在有blur时会被遮挡的bug
-*/
-
 (function() {
     'use strict';
 
-    let cardborderRad;  // 卡片圆角度数
-    let picborderRad;   // 图片圆角度数
-    let blurValue;      // 模糊度
-    let opacityValue;   // 不透明度
-    let cardRounded;    // 卡片圆角 bool
-    let picRounded;     // 图片圆角 bool
-    let bgFullscreen;   // 背景全屏 bool
-    let adBlock;        // 去广告 bool
-    let customCSS;      // 自定义css bool
+    let cardborderRad;
+    let picborderRad;
+    let blurValue;
+    let opacityValue;
+    let cardRounded;
+    let picRounded;
+    let bgFullscreen;
+    let adBlock;
+    let customCSS;
 
     function initVarible() {
         cardborderRad = parseFloat(localStorage.getItem("LuoguDisplayBetter-cardborderRad") ?? 15);
@@ -52,32 +47,34 @@
         if (cardRounded) {
             css += `.l-card, .lg-article, .card { border-radius: ${cardRadius} !important; }`;
             css += `.l-form-layout, .am-panel { border-radius: ${cardRadius} !important; }`;
+
             if (document.querySelector('.dropdown .center')) css += `.dropdown .center { border-radius: ${cardRadius} !important; }`;
+
+            if (document.querySelector('.user-header-top')) css += `.user-header-top { border-top-left-radius:
+                ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom {
+                border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
+
+            if (document.querySelector('.user-nav')) css += `.user-nav { border-bottom-left-radius: ${cardRadius};
+                border-bottom-right-radius: ${cardRadius}; }`;
+
+            if (document.querySelector('.test-case')) css += `.test-case { border-radius: 10px; }`;
+
+            if (document.querySelector('.article-banner')) css += `html.ldb-bgfullscreen .article-banner.article-banner
+                { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
+
+            if (document.querySelector('.article-content')) css += `html.ldb-bgfullscreen .article-content.article-content
+                { border-bottom-left-radius: ${cardRadius} !important; border-bottom-right-radius: ${cardRadius} !important; }`;
+
+            if (document.querySelector('.toc')) css += `html.ldb-bgfullscreen .toc.toc { border-radius: .5em !important; }`;
+
+            if (document.querySelector('.meta')) css += `.meta { border-top-left-radius: ${cardRadius} !important;
+                border-top-right-radius: ${cardRadius} !important; }`
         }
-        if (document.querySelector('.user-header-top')) css += `.user-header-top { border-top-left-radius: 
-            ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom { 
-            border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
-
-        if (document.querySelector('.user-nav')) css += `.user-nav { border-bottom-left-radius: ${cardRadius}; 
-            border-bottom-right-radius: ${cardRadius}; }`;
-
-        if (document.querySelector('.test-case')) css += `.test-case { border-radius: 10px; }`;
-
-        if (document.querySelector('.article-banner')) css += `html.ldb-bgfullscreen .article-banner.article-banner 
-            { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
-
-        if (document.querySelector('.article-content')) css += `html.ldb-bgfullscreen .article-content.article-content 
-            { border-bottom-left-radius: ${cardRadius} !important; border-bottom-right-radius: ${cardRadius} !important; }`;
-
-        if (document.querySelector('.toc')) css += `html.ldb-bgfullscreen .toc.toc { border-radius: .5em !important; }`;
-
-        if (document.querySelector('.meta')) css += `.meta { border-top-left-radius: ${cardRadius} !important; 
-            border-top-right-radius: ${cardRadius} !important; }`
 
         if (picRounded) css += `img { border-radius: ${picRadius} !important; }`;
 
         style.innerHTML = css;
-        
+
         document.head.append(style);
     }
 
@@ -90,18 +87,12 @@
         const style = document.createElement('style');
         style.id = 'ldb-blur-style';
         const val = blurValue === 0 ? 'none' : `blur(${blurValue}px)`;
-        const css = `.lg-article, .card, .l-card { backdrop-filter: ${val} !important; }` + //, .theme-page
-                    // `.theme-page { --theme-card-backdrop-filter: ${val} !important; }` +
-                    `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { backdrop-filter: ${val} !important; }` +
+        const navNoBlur = `backdrop-filter: none !important; -webkit-backdrop-filter: none !important;`;
+        const css = `.lg-article, .card, .l-card { backdrop-filter: ${val} !important; }` +
+                    `.dropdown .center, .popup { backdrop-filter: ${val} !important; }` +
+                    `.am-comment-hd, .am-comment-bd { backdrop-filter: ${val} !important; }` +
                     `.article-banner{ backdrop-filter: ${val} !important; }` +
-                    // 排除下拉菜单、弹出层，防止 blur 遮挡 dropdown/popper
-                    `.el-popper, .el-dropdown-menu, .el-select-dropdown, .el-cascader__dropdown,` +
-                    `.el-picker__popper, .el-popover, .el-tooltip__popper, .el-dialog__wrapper,` +
-                    `.el-message-box__wrapper, .el-drawer, .el-notification,` +
-                    `.v-popper, .v-popper__inner,` +
-                    `.top-bar [class*="dropdown"], .sidebar [class*="dropdown"], .nav-group [class*="dropdown"],` +
-                    `.top-bar [class*="popper"], .sidebar [class*="popper"], .nav-group [class*="popper"]` +
-                    `{ backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }`;
+                    `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { ${navNoBlur} }`;
         style.innerHTML = css;
         document.head.append(style);
     }
@@ -116,7 +107,8 @@
         style.id = 'ldb-opacity-style';
         const alpha = opacityValue / 100;
         const css = `.lg-article, .l-card, .card { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
-                    // `.theme-page { --theme-card-background: rgba(255, 255, 255, ${alpha}) !important; }` +
+                    `.dropdown .center, .popup { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
+                    `.am-comment-hd, .am-comment-bd { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `.top-bar, nav.lfe-body, .user-nav, .header-layout { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `.sidebar, .nav-group { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `nav.lfe-body > div { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
@@ -421,12 +413,12 @@
             #ldb-panel h2 { margin: 0 0 16px 0; font-size: 22px; font-weight: 600; color: #2c3e50; }
             #ldb-panel h3 { margin: 18px 0 6px 0; font-size: 15px; font-weight: 500; color: #34495e; }
             #ldb-panel p { margin: 6px 0 12px 0; display: flex; align-items: center; gap: 10px; font-size: 14px; }
-            #ldb-panel input[type="range"] { flex: 1; accent-color: #000; height: 4px; 
+            #ldb-panel input[type="range"] { flex: 1; accent-color: #000; height: 4px;
                 border-radius: 2px; background: #dce3e8; cursor: pointer; }
-            #ldb-panel input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; 
-                width: 16px; height: 16px; border-radius: 50%; background: #000; 
+            #ldb-panel input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none;
+                width: 16px; height: 16px; border-radius: 50%; background: #000;
                 box-shadow: 0 1px 4px rgba(0,0,0,0.2); cursor: pointer; }
-            #ldb-panel input[type="checkbox"] { margin-right: 8px; width: 18px; height: 18px; 
+            #ldb-panel input[type="checkbox"] { margin-right: 8px; width: 18px; height: 18px;
                 accent-color: #000; cursor: pointer; }
             #ldb-panel label { cursor: pointer; user-select: none; }
             #ldb-panel-customCSS {
@@ -457,7 +449,7 @@
             }
             #ldb-panel-reset:hover { background: #d5dbe0; }
             #ldb-panel-reset:active { transform: scale(0.96); }
-            #blur-value, #opacity-value, #rounded-value-card, #rounded-value-pic 
+            #blur-value, #opacity-value, #rounded-value-card, #rounded-value-pic
                 { display: inline-block; width: 45px; text-align: center; font-weight: 500; }
             #ldb-panel a { color: #0d3d41; text-decoration: none; }
             #ldb-panel a:hover { text-decoration: underline; }
