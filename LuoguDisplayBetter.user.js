@@ -74,7 +74,10 @@
                     `.dropdown .center, .popup { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
                     `.am-comment-hd, .am-comment-bd { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
                     `.article-banner { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
-                    `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }`;
+                    `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
+                    `.dropdown { z-index: 9999 !important; }` +
+                    `.dropdown .center, .popup { z-index: 10000 !important; transform: translateZ(0) !important; overflow: visible !important; }` +
+                    `.dropdown, .dropdown-container, [class*="dropdown"] { overflow: visible !important; }`;
         style.innerHTML = css;
         document.head.append(style);
     }
