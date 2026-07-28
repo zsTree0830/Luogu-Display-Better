@@ -43,7 +43,7 @@
         style.id = 'ldb-rounded-style';
         const cardRadius = cardborderRad + 'px';
         const picRadius = picborderRad + 'px';
-        let css;
+        let css = ``;
         if (cardRounded) {
             css += `.l-card, .lg-article, .card { border-radius: ${cardRadius} !important; }`;
             css += `.l-form-layout, .am-panel { border-radius: ${cardRadius} !important; }`;
