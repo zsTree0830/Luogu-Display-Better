@@ -52,6 +52,7 @@
         if (cardRounded) {
             css += `.l-card, .lg-article, .card { border-radius: ${cardRadius} !important; }`;
             css += `.l-form-layout, .am-panel { border-radius: ${cardRadius} !important; }`;
+            if (document.querySelector('.dropdown .center')) css += `.dropdown .center { border-radius: ${cardRadius} !important; }`;
         }
         if (document.querySelector('.user-header-top')) css += `.user-header-top { border-top-left-radius: 
             ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom { 
