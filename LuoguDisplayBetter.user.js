@@ -43,38 +43,21 @@
         style.id = 'ldb-rounded-style';
         const cardRadius = cardborderRad + 'px';
         const picRadius = picborderRad + 'px';
-        let css = `.swal2-popup.swal2-modal.swal2-show { border-radius: ${cardRadius} !important; }`;       //??
+        let css;
         if (cardRounded) {
             css += `.l-card, .lg-article, .card { border-radius: ${cardRadius} !important; }`;
             css += `.l-form-layout, .am-panel { border-radius: ${cardRadius} !important; }`;
-
             if (document.querySelector('.dropdown .center')) css += `.dropdown .center { border-radius: ${cardRadius} !important; }`;
-
-            if (document.querySelector('.user-header-top')) css += `.user-header-top { border-top-left-radius:
-                ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom {
-                border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
-
-            if (document.querySelector('.user-nav')) css += `.user-nav { border-bottom-left-radius: ${cardRadius};
-                border-bottom-right-radius: ${cardRadius}; }`;
-
+            if (document.querySelector('.user-header-top')) css += `.user-header-top { border-top-left-radius: ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom { border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
+            if (document.querySelector('.user-nav')) css += `.user-nav { border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
             if (document.querySelector('.test-case')) css += `.test-case { border-radius: 10px; }`;
-
-            if (document.querySelector('.article-banner')) css += `html.ldb-bgfullscreen .article-banner.article-banner
-                { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
-
-            if (document.querySelector('.article-content')) css += `html.ldb-bgfullscreen .article-content.article-content
-                { border-bottom-left-radius: ${cardRadius} !important; border-bottom-right-radius: ${cardRadius} !important; }`;
-
+            if (document.querySelector('.article-banner')) css += `html.ldb-bgfullscreen .article-banner.article-banner { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
+            if (document.querySelector('.article-content')) css += `html.ldb-bgfullscreen .article-content.article-content { border-bottom-left-radius: ${cardRadius} !important; border-bottom-right-radius: ${cardRadius} !important; }`;
             if (document.querySelector('.toc')) css += `html.ldb-bgfullscreen .toc.toc { border-radius: .5em !important; }`;
-
-            if (document.querySelector('.meta')) css += `.meta { border-top-left-radius: ${cardRadius} !important;
-                border-top-right-radius: ${cardRadius} !important; }`
+            if (document.querySelector('.meta')) css += `.meta { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`
         }
-
         if (picRounded) css += `img { border-radius: ${picRadius} !important; }`;
-
         style.innerHTML = css;
-
         document.head.append(style);
     }
 
