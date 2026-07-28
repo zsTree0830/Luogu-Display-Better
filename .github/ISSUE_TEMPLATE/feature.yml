@@ -7,7 +7,7 @@ assignees: ["UTF-8s", "zsTree0830"]
 body:
 - type: markdown
   attributes:
-    value: We're glad you're here! Please fill out the form below to suggest a new feature for the Luogu Display Better plugin:
+    value: "We're glad you're here! Please fill out the form below to suggest a new feature for the Luogu Display Better plugin:"
 - type: checkboxes
   id: confirm
   attributes:
@@ -25,15 +25,15 @@ body:
   id: description
   attributes:
     label: Feature description
-    description: The more detail you provide, the better we can implement your idea.
-    placeholder: Describe the feature you want
+    description: "The more detail you provide, the better we can implement your idea."
+    placeholder: "Describe the feature you want"
   validations:
     required: true
 - type: textarea
   id: reason
   attributes:
     label: Reason
-    description: Please explain why you need this feature.
-    placeholder: Explain why this feature would be useful
+    description: "Please explain why you need this feature."
+    placeholder: "Explain why this feature would be useful"
   validations:
     required: false
