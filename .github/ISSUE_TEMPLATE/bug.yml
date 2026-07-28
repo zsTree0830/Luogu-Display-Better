@@ -21,6 +21,56 @@ body:
       required: true
     - label: I am working on fixing this issue.
       required: false
+- type: dropdown
+  id: browser
+  attributes:
+    label: Browser
+    description: Which browser are you using?
+    options:
+      - Chrome
+      - Firefox
+      - Edge
+      - Safari
+      - Opera
+      - Other (please specify in the text area)
+  validations:
+    required: true
+- type: input
+  id: browser_version
+  attributes:
+    label: Browser version
+    description: Please provide the exact version number (e.g., 120.0.6099.109).
+    placeholder: e.g., 120.0.6099.109
+  validations:
+    required: true
+- type: dropdown
+  id: script_manager
+  attributes:
+    label: Script Manager
+    description: Which userscript manager are you using?
+    options:
+      - Tampermonkey
+      - Violentmonkey
+      - Greasemonkey
+      - Other (please specify in the text area)
+  validations:
+    required: true
+- type: input
+  id: script_manager_version
+  attributes:
+    label: Script Manager version
+    description: Please provide the exact version number.
+    placeholder: e.g., 5.5.0
+  validations:
+    required: true
+- type: input
+  id: os
+  attributes:
+    label: Operating System
+    description: Include OS name and version (e.g., Windows 11, macOS Tahoe 26.5.1, Ubuntu 26.04.4).
+    placeholder: e.g., Windows 11 26H2
+  validations:
+    required: true
 - type: textarea
   id: problem
   attributes:
