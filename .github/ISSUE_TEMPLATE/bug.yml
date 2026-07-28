@@ -32,7 +32,7 @@ body:
       - Edge
       - Safari
       - Opera
-      - Other (please specify in the text area)
+      - Other (please specify name in the version field below)
   validations:
     required: true
 - type: input
@@ -40,7 +40,7 @@ body:
   attributes:
     label: Browser version
     description: "Please provide the exact version number (e.g., 150.0.7871.187)."
-    placeholder: "150.0.7871.187"
+    placeholder: "150.0.7871.187 / Brave 1.92.144"
   validations:
     required: true
 - type: dropdown
@@ -52,7 +52,7 @@ body:
       - Tampermonkey
       - Violentmonkey
       - Greasemonkey
-      - Other (please specify in the text area)
+      - Other (please specify name in the version field below)
   validations:
     required: true
 - type: input
@@ -60,7 +60,7 @@ body:
   attributes:
     label: Script Manager version
     description: "Please provide the exact version number."
-    placeholder: "5.5.0"
+    placeholder: "5.5.0 / ScriptCat 1.5.0-beta"
   validations:
     required: true
 - type: input
