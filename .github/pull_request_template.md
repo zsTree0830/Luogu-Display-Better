@@ -7,7 +7,7 @@ https://github.com/zsTree0830/Luogu-Display-Better/blob/main/CONTRIBUTING.md
 Notes:
 - Base your PR on the development branch (`dev`).
   External developers should submit pull requests to `extern-contrib`.
-- Please use this pull request template, or your pull request will be closed.
+- Please use this pull request template, or your pull request may be closed.
 -->
 
 <!-- If you need to add release notes, put them here.-->
