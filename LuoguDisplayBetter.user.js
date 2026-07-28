@@ -54,7 +54,7 @@
             if (document.querySelector('.article-banner')) css += `html.ldb-bgfullscreen .article-banner.article-banner { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
             if (document.querySelector('.article-content')) css += `html.ldb-bgfullscreen .article-content.article-content { border-bottom-left-radius: ${cardRadius} !important; border-bottom-right-radius: ${cardRadius} !important; }`;
             if (document.querySelector('.toc')) css += `html.ldb-bgfullscreen .toc.toc { border-radius: .5em !important; }`;
-            if (document.querySelector('.meta')) css += `.meta { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`
+            if (document.querySelector('.meta')) css += `.meta { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
         }
         if (picRounded) css += `img { border-radius: ${picRadius} !important; }`;
         style.innerHTML = css;
@@ -70,12 +70,11 @@
         const style = document.createElement('style');
         style.id = 'ldb-blur-style';
         const val = blurValue === 0 ? 'none' : `blur(${blurValue}px)`;
-        const navNoBlur = `backdrop-filter: none !important; -webkit-backdrop-filter: none !important;`;
-        const css = `.lg-article, .card, .l-card { backdrop-filter: ${val} !important; }` +
-                    `.dropdown .center, .popup { backdrop-filter: ${val} !important; }` +
-                    `.am-comment-hd, .am-comment-bd { backdrop-filter: ${val} !important; }` +
-                    `.article-banner{ backdrop-filter: ${val} !important; }` +
-                    `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { ${navNoBlur} }`;
+        const css = `.lg-article, .card, .l-card { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
+                    `.dropdown .center, .popup { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
+                    `.am-comment-hd, .am-comment-bd { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
+                    `.article-banner { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
+                    `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }`;
         style.innerHTML = css;
         document.head.append(style);
     }
