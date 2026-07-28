@@ -3,14 +3,14 @@ Hi there! Welcome to Luogu Display Better.
 Before you contribute, please read the contribution guidelines.
 
 > [!IMPORTANT]
-> Please note that external developers should submit pull requests to `extern-contrib`.
+> Please note that external developers should submit pull requests to branch `extern-contrib`.
 
 - Do not run a code formatter.
 - Do not use any external libraries without prior permission.
 - For new features, open an issue first to discuss what you would like to change.
 - Respect the original code style. Variables should be camelCase, functions should be PascalCase, and classes should be TitleCase. There is a bunch of old code that doesn't follow this rule, but new code should.
 - Commit Unix line endings.
-- Before submitting your pull request, merge `dev` with your new branch and fix any conflicts. Make sure you don't break anything in development.
+- Before submitting your pull request, merge branch `dev` with your new branch and fix any conflicts. Make sure you don't break anything in development.
 - Be patient. We may not be able to review your PR immediately.
 - Please be considerate towards the developers and other users when raising issues or presenting pull requests.
 - Respect our decision(s), and do not be upset or abusive if your submission is not used.
