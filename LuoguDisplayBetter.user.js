@@ -30,7 +30,7 @@
         opacityValue = parseFloat(localStorage.getItem("LuoguDisplayBetter-opacity") ?? 75);
         cardRounded = localStorage.getItem("LuoguDisplayBetter-cardRounded") !== 'false';
         picRounded = localStorage.getItem("LuoguDisplayBetter-picRounded") !== 'false';
-        adBlock = localStorage.getItem("LuoguDisplayBetter-adBlock") !== 'true';
+        adBlock = localStorage.getItem("LuoguDisplayBetter-adBlock") === 'true';
         bgFullscreen = localStorage.getItem("LuoguDisplayBetter-bgFullscreen") !== 'false';
         customCSS = localStorage.getItem("LuoguDisplayBetter-customCSS") ?? '';
     }
@@ -74,7 +74,7 @@
                     `.dropdown .center, .popup { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
                     `.am-comment-hd, .am-comment-bd { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
                     `.article-banner { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }` +
-                    `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }`;
+                    `.top-bar, .sidebar, .nav-group, nav.lfe-body, .user-nav, .header-layout { backdrop-filter: ${val} !important; -webkit-backdrop-filter: ${val} !important; }`;
         style.innerHTML = css;
         document.head.append(style);
     }
@@ -91,8 +91,6 @@
         const css = `.lg-article, .l-card, .card { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `.dropdown .center, .popup { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `.am-comment-hd, .am-comment-bd { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
-                    `.top-bar, nav.lfe-body, .user-nav, .header-layout { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
-                    `.sidebar, .nav-group { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `nav.lfe-body > div { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `.user-header-bottom { background-color: rgba(255, 255, 255, ${alpha}) !important; }` +
                     `.top-bar { --theme-navi-back: rgba(255, 255, 255, ${alpha}) !important; }`;
@@ -245,10 +243,9 @@
     }
 
     function applyAdBlock() {
-        if (!adBlock) return;
         const ad = document.querySelector('.side div[data-v-ce0b4304]');
         if (!ad) return;
-        ad.remove();
+        ad.style.display = adBlock ? 'none' : '';
     }
 
     function applyCustomCSS() {
@@ -336,7 +333,7 @@
                 </p>
                 <h3>自定义 CSS</h3>
                 <p>
-                    <input id="ldb-panel-customCSS" value="${customCSS}" />
+                    <textarea id="ldb-panel-customCSS">${customCSS}</textarea>
                 </p>
                 <button id="ldb-panel-reset">还原设置</button>
             </div>
@@ -408,8 +405,7 @@
                 min-height: 60px;
                 max-height: 200px;
                 padding: 6px 8px;
-                font-family: monospace;
-                font-size: 13px;
+                font-size: 13px !important;
                 resize: vertical;
                 border: 1px solid #ccc;
                 border-radius: 4px;
