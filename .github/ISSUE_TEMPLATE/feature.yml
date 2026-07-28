@@ -1,5 +1,5 @@
 name: Feature request
-about: Suggest a new feature for the plugin
+description: Suggest a new feature for the plugin
 title: "[Feature] Describe the feature you'd like to see"
 labels: ["enhancement"]
 assignees: ["UTF-8s", "zsTree0830"]

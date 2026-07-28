@@ -1,5 +1,5 @@
 name: Bug report
-about: Report bugs to improve the plugin
+description: Report bugs to improve the plugin
 title: "[Bug] Describe the bug you found"
 labels: ["bug"]
 assignees: ["UTF-8s", "zsTree0830"]
