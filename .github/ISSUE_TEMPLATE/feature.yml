@@ -1,0 +1,39 @@
+name: Feature request
+description: Suggest a new feature for the plugin
+title: "[Feature] Describe the feature you'd like to see"
+labels: ["enhancement"]
+assignees: ["UTF-8s", "zsTree0830"]
+
+body:
+- type: markdown
+  attributes:
+    value: "We're glad you're here! Please fill out the form below to suggest a new feature for the Luogu Display Better plugin:"
+- type: checkboxes
+  id: confirm
+  attributes:
+    label: Checklist
+    options:
+    - label: I have confirmed that the Luogu Display Better plugin is the latest version.
+      required: true
+    - label: This feature does not yet exist in the latest version.
+      required: true
+    - label: I have searched the [issues](https://github.com/zsTree0830/Luogu-Display-Better/issues) and confirmed that this feature has not been requested.
+      required: true
+    - label: I am working on implementing this feature.
+      required: false
+- type: textarea
+  id: description
+  attributes:
+    label: Feature description
+    description: "The more detail you provide, the better we can implement your idea."
+    placeholder: "Describe the feature you want"
+  validations:
+    required: true
+- type: textarea
+  id: reason
+  attributes:
+    label: Reason
+    description: "Please explain why you need this feature."
+    placeholder: "Explain why this feature would be useful"
+  validations:
+    required: false

@@ -1,0 +1,105 @@
+name: Bug report
+description: Report bugs to improve the plugin
+title: "[Bug] Describe the bug you found"
+labels: ["bug"]
+assignees: ["UTF-8s", "zsTree0830"]
+
+body:
+- type: markdown
+  attributes:
+    value: "We're glad you're here! Please fill out the form below to report a bug for the Luogu Display Better plugin:"
+- type: checkboxes
+  id: confirm
+  attributes:
+    label: Checklist
+    options:
+    - label: I have confirmed that the Luogu Display Better plugin is the latest version.
+      required: true
+    - label: This bug has not been fixed in the latest version.
+      required: true
+    - label: I have searched the [issues](https://github.com/zsTree0830/Luogu-Display-Better/issues) and confirmed that this bug has not been reported.
+      required: true
+    - label: I am working on fixing this issue.
+      required: false
+- type: dropdown
+  id: browser
+  attributes:
+    label: Browser
+    description: "Which browser are you using?"
+    options:
+      - Chrome
+      - Firefox
+      - Edge
+      - Safari
+      - Opera
+      - Other (please specify name in the version field below)
+  validations:
+    required: true
+- type: input
+  id: browser_version
+  attributes:
+    label: Browser version
+    description: "Please provide the exact version number (e.g., 150.0.7871.187)."
+    placeholder: "150.0.7871.187 / Brave 1.92.144"
+  validations:
+    required: true
+- type: dropdown
+  id: script_manager
+  attributes:
+    label: Script Manager
+    description: "Which userscript manager are you using?"
+    options:
+      - Tampermonkey
+      - Violentmonkey
+      - Greasemonkey
+      - Other (please specify name in the version field below)
+  validations:
+    required: true
+- type: input
+  id: script_manager_version
+  attributes:
+    label: Script Manager version
+    description: "Please provide the exact version number."
+    placeholder: "5.5.0 / ScriptCat 1.5.0-beta"
+  validations:
+    required: true
+- type: input
+  id: os
+  attributes:
+    label: Operating System
+    description: "Include OS name and version (e.g., Windows 11, macOS 14.5, Ubuntu 22.04)."
+    placeholder: "Windows 11 26H2"
+  validations:
+    required: true
+- type: textarea
+  id: problem
+  attributes:
+    label: Bug description
+    description: "Screenshots can help explain your issue more clearly."
+    placeholder: "Describe the bug"
+  validations:
+    required: true
+- type: textarea
+  id: expected
+  attributes:
+    label: Expected behavior
+    description: "What did you expect to happen instead of the observed bug?"
+    placeholder: "The button should be visible after clicking"
+  validations:
+    required: true
+- type: textarea
+  id: reproduce
+  attributes:
+    label: Steps to Reproduce
+    description: "Please provide step-by-step instructions to reproduce the issue."
+    placeholder: "Describe how to reproduce the bug"
+  validations:
+    required: false
+- type: textarea
+  id: console
+  attributes:
+    label: Console error message
+    description: "If there is no console error, you can ignore this field."
+    placeholder: "Paste the console error message here"
+  validations:
+    required: false
