@@ -10,11 +10,6 @@ Notes:
 - Please use this pull request template, or your pull request may be closed.
 -->
 
-<!-- If you need to add release notes, put them here.-->
-<!-- release-notes
-No release notes were provided for this release.
--->
-
 **What does this PR aim to accomplish?**
 
 <!--- Replace this with a detailed description, screenshots (if necessary), as well as links to any relevant GitHub issues -->
