@@ -45,6 +45,6 @@ jobs:
           generate_release_notes: true
           files: |
             LuoguDisplayBetter.user.js
-          prerelease: ${{ steps.version.outputs.minor != '0' || steps.version.outputs.patch != '0' }}
+          prerelease: ${{ steps.version.outputs.patch != '0' }}
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
