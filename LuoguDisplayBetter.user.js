@@ -413,6 +413,7 @@
                 min-height: 60px;
                 max-height: 200px;
                 padding: 6px 8px;
+                font-family: monospace !important;
                 font-size: 13px !important;
                 resize: vertical;
                 border: 1px solid #ccc;
