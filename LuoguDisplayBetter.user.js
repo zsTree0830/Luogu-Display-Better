@@ -47,14 +47,15 @@
         if (cardRounded) {
             css += `.l-card, .lg-article, .card { border-radius: ${cardRadius} !important; }`;
             css += `.l-form-layout, .am-panel { border-radius: ${cardRadius} !important; }`;
-            if (document.querySelector('.dropdown .center')) css += `.dropdown .center { border-radius: ${cardRadius} !important; }`;
-            if (document.querySelector('.user-header-top')) css += `.user-header-top { border-top-left-radius: ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom { border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
-            if (document.querySelector('.user-nav')) css += `.user-nav { border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
-            if (document.querySelector('.test-case')) css += `.test-case { border-radius: 10px; }`;
-            if (document.querySelector('.article-banner')) css += `html.ldb-bgfullscreen .article-banner.article-banner { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
-            if (document.querySelector('.article-content')) css += `html.ldb-bgfullscreen .article-content.article-content { border-bottom-left-radius: ${cardRadius} !important; border-bottom-right-radius: ${cardRadius} !important; }`;
-            if (document.querySelector('.toc')) css += `html.ldb-bgfullscreen .toc.toc { border-radius: .5em !important; }`;
-            if (document.querySelector('.meta')) css += `.meta { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
+            css += `.l-card.comment .author { border-top-left-radius: 15px !important; border-top-right-radius: 15px !important; }`;
+            css += `.dropdown .center { border-radius: ${cardRadius} !important; }`;
+            css += `.user-header-top { border-top-left-radius: ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom { border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
+            css += `.user-nav { border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
+            css += `.test-case { border-radius: 10px; }`;
+            css += `html.ldb-bgfullscreen .article-banner.article-banner { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
+            css += `html.ldb-bgfullscreen .article-content.article-content { border-bottom-left-radius: ${cardRadius} !important; border-bottom-right-radius: ${cardRadius} !important; }`;
+            css += `html.ldb-bgfullscreen .toc.toc { border-radius: .5em !important; }`;
+            css += `.meta { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
         }
         if (picRounded) css += `img { border-radius: ${picRadius} !important; }`;
         style.innerHTML = css;
