@@ -1,4 +1,4 @@
-Language: [English](https://github.com/zsTree0830/Luogu-Display-Better/blob/main/README.md) | [简体中文](https://github.com/zsTree0830/Luogu-Display-Better/blob/main/README/Chinese.md) | 繁體中文
+Language: [English](https://github.com/zsTree0830/Luogu-Display-Better#readme) | [简体中文](https://github.com/zsTree0830/Luogu-Display-Better/blob/main/README/Chinese.md) | 繁體中文
 
 <h1 align="center">Luogu Display Better</h1>
 <p align="center">輕量洛谷美化腳本 · 自由定制你的介面</p>
