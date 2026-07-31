@@ -1,7 +1,7 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name         Luogu Display Better
 // @namespace    https://www.luogu.com.cn/user/1362278
-// @version      1.0.4
+// @version      1.1.0
 // @description  Change your Luogu style what you like best
 // @author       zsTree & Ashstrider
 // @match        *://www.luogu.com.cn/*
@@ -47,7 +47,7 @@
         if (cardRounded) {
             css += `.l-card, .lg-article, .card { border-radius: ${cardRadius} !important; }`;
             css += `.l-form-layout, .am-panel { border-radius: ${cardRadius} !important; }`;
-            css += `.l-card.comment .author { border-top-left-radius: 15px !important; border-top-right-radius: 15px !important; }`;
+            css += `.l-card.comment .author { border-top-left-radius: ${cardRadius} !important; border-top-right-radius: ${cardRadius} !important; }`;
             css += `.dropdown .center { border-radius: ${cardRadius} !important; }`;
             css += `.user-header-top { border-top-left-radius: ${cardRadius}; border-top-right-radius: ${cardRadius}; } .user-header-bottom { border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
             css += `.user-nav { border-bottom-left-radius: ${cardRadius}; border-bottom-right-radius: ${cardRadius}; }`;
